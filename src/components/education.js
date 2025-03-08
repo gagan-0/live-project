@@ -1,6 +1,7 @@
 import LeftNav from "../navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import swal from "sweetalert";
 
 const Education = () =>{
     let educationdata = useSelector( state=>state.MyEducation );
@@ -22,7 +23,7 @@ const Education = () =>{
 
         let mydata = {type:"education", info:educationinfo};
         dispatch(mydata);
-        alert("Data Saved Successfully");
+        swal("Save Success","Data Saved Successfully", "success");
     }
     return(
     <div className="container mt-4">

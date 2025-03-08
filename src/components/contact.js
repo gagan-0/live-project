@@ -1,6 +1,7 @@
 import LeftNav from "../navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import swal from "sweetalert";
 
 const Contact= () =>{
     let contactdata = useSelector( state=>state.MyContact );
@@ -22,7 +23,7 @@ const Contact= () =>{
 
         let mydata = {type:"contact", info:contactinfo};
         dispatch(mydata);
-        alert("Data Saved Successfully");
+        swal("Save Success","Data Saved Successfully", "success");
     }
 
     return(

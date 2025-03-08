@@ -1,6 +1,7 @@
 import LeftNav from "../navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import swal from "sweetalert";
 
 const Experience = () =>{
     let experiencedata = useSelector( state=>state.MyExperience );
@@ -16,7 +17,7 @@ const Experience = () =>{
 
         let mydata = {type:"experience", info:experienceinfo};
         dispatch(mydata);
-        alert("Data Saved Successfully");
+        swal("Save Success","Data Saved Successfully", "success");
     }
 
     return(
