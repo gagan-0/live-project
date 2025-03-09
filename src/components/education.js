@@ -13,7 +13,7 @@ const Education = () =>{
 
     let dispatch = useDispatch();
     const save =() =>{
-        let educationinfo ={
+        let userinfo ={
            "heducation":heducation,
             "pyear":pyear,
             "grade":grade,
@@ -21,7 +21,7 @@ const Education = () =>{
             "city":city
         };
 
-        let mydata = {type:"education", info:educationinfo};
+        let mydata = {type:"education", info:userinfo};
         dispatch(mydata);
         swal("Save Success","Data Saved Successfully", "success");
     }

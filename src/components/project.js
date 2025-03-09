@@ -1,5 +1,5 @@
 import LeftNav from "../navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import swal from "sweetalert";
 
@@ -12,14 +12,14 @@ const Project = () =>{
     
     let dispatch = useDispatch();
     const save =() =>{
-        let projectinfo ={
+        let userinfo ={
             "pname":"",
             "pdetails":"",
             "technology":"",
             "lproject":""
         };
 
-        let mydata = {type:"project", info:projectinfo};
+        let mydata = {type:"project", info:userinfo};
         dispatch(mydata);
         swal("Save Success","Data Saved Successfully", "success");
     }
@@ -60,7 +60,7 @@ const Project = () =>{
                                     <div className="mb-4 ">
                                     <label className="mb-2"> Live Project Url</label>
                                     <input type="text" placeholder="Url" className="form-control"
-                                     onChange={obj=>setLproject(obj.target.value)} value={lproject}/>
+                                     onChange={obj=>setLproject(obj.target.value)} value={lproject} />
 
                                     </div>
                                     <div class="text-center pb-2">

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import swal from "sweetalert";
 
 
 const FinalPreview =() =>{
@@ -9,6 +10,58 @@ const FinalPreview =() =>{
     let skilldata = useSelector( state=>state.MySkill );
     let projectdata = useSelector( state=>state.MyProject );
     let experiencedata = useSelector( state=>state.MyExperience );
+
+    const save1 =() =>{
+        let mydata = {
+            "basic": basicdata,
+            "contact": contactdata,
+            "education": educationdata,
+            "skill": skilldata,
+            "project": projectdata,
+            "experience": experiencedata
+        }
+        let url = "http://localhost:1234/userapi"
+        let postdata ={
+            headers :{'content-type':'application/json'},
+            method:'post',
+            body:JSON.stringify(mydata)
+        }
+
+        fetch(url, postdata)
+        .then(response=>response.json())
+        .then(info=>{
+            swal ("Details Submitted", "Your details are submitted", "success")
+            
+            setTimeout(()=>{window.location.reload()}, 3000);   //it refresh the page
+        })
+
+    }
+
+    const save =() =>{
+        let mydata = {
+            "basic": basicdata,
+            "contact": contactdata,
+            "education": educationdata,
+            "skill": skilldata,
+            "project": projectdata,
+            "experience": experiencedata
+        }
+        let url = "https://cybotrix.com/liveapi/api/save"
+        let postdata ={
+            headers :{'content-type':'application/json'},
+            method:'post',
+            body:JSON.stringify({"details":mydata})
+        }
+
+        fetch(url, postdata)
+        .then(response=>response.text())
+        .then(info=>{
+            swal ("Profile Submitted", "Your Profile submitted, we will contact you soon...", "success")
+            
+            setTimeout(()=>{window.location.reload()}, 3000);   //it refresh the page
+        })
+
+    }
 
     return(
             
@@ -20,18 +73,20 @@ const FinalPreview =() =>{
 
                 <div className="col-xl-6 mb-4">
                     <div className="card border-0 shadow-lg">
-                        <div className="card-header bg-info text-white"> Basic Details </div>
-                        <div className="card-body"> 
-                            <table>
-                                <tr> <td> Full Name </td> <td> {basicdata.fullname} </td></tr>
-                                <tr> <td> Gender </td> <td> {basicdata.gender} </td></tr>
-                                <tr> <td> Date of Birth </td> <td> {basicdata.dob} </td></tr>
-                                <tr> <td> Married </td> <td> {basicdata.married} </td></tr>
-                                <tr> <td> Profile Status </td> <td> {basicdata.profilestatus} </td></tr>
-                                <tr> <td colSpan={2}> <b> About Me: </b> {basicdata.about} </td></tr>
+                        <div className="card card-header bg-info text-white"> Basic Details </div>
+                        <div className="card card-body"> 
+                            <table className="table">
+                                <tbody>
+                                <tr> <th> Full Name </th> <td> {basicdata.fullname} </td></tr>
+                                <tr> <th> Gender </th> <td> {basicdata.gender} </td></tr>
+                                <tr> <th> Date of Birth </th> <td> {basicdata.dob} </td></tr>
+                                <tr> <th> Married </th> <td> {basicdata.married} </td></tr>
+                                <tr> <th> Profile Status </th> <td> {basicdata.profilestatus} </td></tr>
+                                <tr> <th>About Me: </th> <td>{basicdata.about} </td></tr>
+                                </tbody>
                             </table> 
                         </div>
-                        <div className="card-footer"> 
+                        <div className=" card card-footer"> 
                         <Link to="/basic" className="text-decoration"> 
                         <i className="fa fa-edit"></i>Edit</Link>
                         </div>
@@ -40,18 +95,19 @@ const FinalPreview =() =>{
 
                 <div className="col-xl-6 mb-4">
                     <div className="card border-0 shadow-lg">
-                        <div className="card-header bg-info text-white"> Contact Details </div>
-                        <div className="card-body">
-                        <table>
-                                <tr> <td> Mobile Number </td> <td> {contactdata.mobile} </td></tr>
-                                <tr> <td> Email ID </td> <td> {contactdata.email} </td></tr>
-                                <tr> <td> Local Address </td> <td> {contactdata.laddress} </td></tr>
-                                <tr> <td> Permanent Address </td> <td> {contactdata.paddress} </td></tr>
-                                <tr> <td colSpan={2}> Refrence Address </td> <td> {contactdata.raddress} </td></tr>
-                                
+                        <div className="card card-header bg-info text-white"> Contact Details </div>
+                        <div className="card card-body">
+                        <table className="table">
+                            <tbody>
+                                <tr> <th> Mobile Number </th> <td> {contactdata.mobile} </td></tr>
+                                <tr> <th> Email ID </th> <td> {contactdata.email} </td></tr>
+                                <tr> <th> Local Address </th> <td> {contactdata.laddress} </td></tr>
+                                <tr> <th> Permanent Address </th> <td> {contactdata.paddress} </td></tr>
+                                <tr> <th> Refrence Address </th> <td> {contactdata.raddress} </td></tr>
+                                </tbody>
                             </table>
                         </div>
-                        <div className="card-footer "> 
+                        <div className="card card-footer "> 
                         <Link to="/contact" className="text-decoration"> 
                         <i className="fa fa-edit"></i>Edit</Link>
                         </div>
@@ -60,18 +116,19 @@ const FinalPreview =() =>{
 
                 <div className="col-xl-6 mb-4">
                     <div className="card border-0 shadow-lg">
-                        <div className="card-header bg-info text-white"> Education Details </div>
+                        <div className="card card-header bg-info text-white"> Education Details </div>
                         <div className="card-body"> 
-                        <table>
-                                <tr> <td> Highest Education </td> <td> {educationdata.heducation} </td></tr>
-                                <tr> <td> Passing Year </td> <td> {educationdata.pyear} </td></tr>
-                                <tr> <td> Grade/Persentage </td> <td> {educationdata.grade} </td></tr>
-                                <tr> <td> Collage </td> <td> {educationdata.collage} </td></tr>
-                                <tr> <td colSpan={2}> City </td> <td> {educationdata.city} </td></tr>
-                                
+                        <table className="table">
+                            <tbody>
+                                <tr> <th> Highest Education </th> <td> {educationdata.heducation} </td></tr>
+                                <tr> <th> Passing Year </th> <td> {educationdata.pyear} </td></tr>
+                                <tr> <th> Grade/Persentage </th> <td> {educationdata.grade} </td></tr>
+                                <tr> <th> Collage </th> <td> {educationdata.collage} </td></tr>
+                                <tr> <th> City </th> <td> {educationdata.city} </td></tr>
+                                </tbody>
                             </table> 
                         </div>
-                        <div className="card-footer "> 
+                        <div className="card card-footer "> 
                         <Link to="/education" className="text-decoration"> 
                         <i className="fa fa-edit"></i>Edit</Link>
                          </div>
@@ -80,14 +137,15 @@ const FinalPreview =() =>{
 
                 <div className="col-xl-6 mb-4">
                     <div className="card border-0 shadow-lg">
-                        <div className="card-header bg-info text-white"> Skill Details </div>
-                        <div className="card-body">
-                        <table>
-                                <tr> <td colSpan={2}> Skill </td> <td> {skilldata.skill} </td></tr>
-                                
+                        <div className="card card-header bg-info text-white"> Skill Details </div>
+                        <div className="card card-body">
+                        <table className="table">
+                            <tbody>
+                                <tr> <th> Skill </th> <td> {skilldata.skill} </td></tr>
+                                </tbody>
                             </table> 
                         </div>
-                        <div className="card-footer "> 
+                        <div className="card card-footer "> 
                         <Link to="/skill" className="text-decoration"> 
                         <i className="fa fa-edit"></i>Edit</Link>
                          </div>
@@ -96,16 +154,18 @@ const FinalPreview =() =>{
 
                 <div className="col-xl-6 mb-4">
                     <div className="card border-0 shadow-lg">
-                        <div className="card-header bg-info text-white"> Project Details </div>
-                        <div className="card-body">
-                        <table>
-                                <tr> <td> Project Name </td> <td> {projectdata.pname} </td></tr>
-                                <tr> <td> Project Details </td> <td> {projectdata.pdetails} </td></tr>
-                                <tr> <td> Technology </td> <td> {projectdata.technology} </td></tr>
-                                <tr> <td> Live Project </td> <td> {projectdata.lproject} </td></tr>
+                        <div className="card card-header bg-info text-white"> Project Details </div>
+                        <div className="card card-body">
+                        <table className="table">
+                            <tbody>
+                                <tr> <th> Project Name </th> <td> {projectdata.pname} </td></tr>
+                                <tr> <th> Project Details </th> <td> {projectdata.pdetails} </td></tr>
+                                <tr> <th> Technology </th> <td> {projectdata.technology} </td></tr>
+                                <tr> <th> Live Project </th> <td> {projectdata.lproject} </td></tr>
+                                </tbody>
                             </table>
                         </div>
-                        <div className="card-footer "> 
+                        <div className="card card-footer "> 
                         <Link to="/project" className="text-decoration"> 
                         <i className="fa fa-edit"></i>Edit</Link>
                          </div>
@@ -114,14 +174,16 @@ const FinalPreview =() =>{
 
                 <div className="col-xl-6 mb-4">
                     <div className="card border-0 shadow-lg">
-                        <div className="card-header bg-info text-white"> Experience Details </div>
-                        <div className="card-body">
-                        <table>
-                                <tr> <td> Total Experience : </td> <td> {experiencedata.texperience} </td></tr>
-                                <tr> <td colSpan={2}> <b> About Experience : </b> {experiencedata.aexperience} </td></tr>
+                        <div className="card card-header bg-info text-white"> Experience Details </div>
+                        <div className="card card-body">
+                        <table className="table">
+                            <tbody>
+                                <tr> <th> Total Experience : </th> <td> {experiencedata.texperience} </td></tr>
+                                <tr> <th>About Experience : </th><td> {experiencedata.aexperience} </td></tr>
+                                </tbody>
                             </table> 
                         </div>
-                        <div className="card-footer "> 
+                        <div className="card card-footer "> 
                         <Link to="/experience" className="text-decoration"> 
                         <i className="fa fa-edit"></i>Edit</Link>
                          </div>
@@ -129,7 +191,7 @@ const FinalPreview =() =>{
                 </div>
 
                 <div className="col-xl-12 text-center">
-                    <button className="btn btn-danger"> Submit My Details 
+                    <button className="btn btn-danger" onClick={save}> Submit My Details 
                         <i className="fa fa-arrow-right"></i>
                     </button>
                 </div>
